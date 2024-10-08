@@ -4,6 +4,7 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.efficientnet import preprocess_input
 import os
 import json
+import shutil
 from sklearn.metrics import accuracy_score, f1_score
 
 # 自訂 F1_score 函數
@@ -71,6 +72,15 @@ def predict_single_image(img_path):
     
     return predicted_class, confidence
 
+# 初始化結果儲存路徑
+results_dir = 'results'
+true_dir = os.path.join(results_dir, 'true')
+false_dir = os.path.join(results_dir, 'false')
+
+# 創建結果目錄，如果不存在的話
+os.makedirs(true_dir, exist_ok=True)
+os.makedirs(false_dir, exist_ok=True)
+
 # 遍歷 test 資料夾下的所有子資料夾和圖片
 test_dir = 'test'
 y_true = []
@@ -98,6 +108,18 @@ for class_name in os.listdir(test_dir):
         y_true.append(class_name)
         
         print(f"圖片: {img_path} | 預測類別: {predicted_class} | 置信度: {confidence:.4f}")
+        
+        # 決定將圖片複製到 true 或 false 資料夾
+        if predicted_class == class_name:
+            dest_dir = true_dir
+        else:
+            dest_dir = false_dir
+        
+        # 複製圖片到目的地資料夾
+        try:
+            shutil.copy(img_path, dest_dir)
+        except Exception as e:
+            print(f"複製圖片失敗: {img_path} 到 {dest_dir}, 錯誤: {e}")
 
 # 計算準確率
 accuracy = accuracy_score(y_true, y_pred)
