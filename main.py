@@ -91,6 +91,12 @@ for class_name in os.listdir(test_dir):
     if not os.path.isdir(class_path):
         continue  # 跳過非資料夾項目
     
+    # 創建對應的子資料夾在 results/true 和 results/false 中
+    true_class_dir = os.path.join(true_dir, class_name)
+    false_class_dir = os.path.join(false_dir, class_name)
+    os.makedirs(true_class_dir, exist_ok=True)
+    os.makedirs(false_class_dir, exist_ok=True)
+    
     for img_name in os.listdir(class_path):
         img_path = os.path.join(class_path, img_name)
         if not img_name.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
@@ -109,17 +115,17 @@ for class_name in os.listdir(test_dir):
         
         print(f"圖片: {img_path} | 預測類別: {predicted_class} | 置信度: {confidence:.4f}")
         
-        # 決定將圖片複製到 true 或 false 資料夾
+        # 決定將圖片複製到 true 或 false 資料夾的對應子資料夾
         if predicted_class == class_name:
-            dest_dir = true_dir
+            dest_dir_specific = true_class_dir
         else:
-            dest_dir = false_dir
+            dest_dir_specific = false_class_dir
         
         # 複製圖片到目的地資料夾
         try:
-            shutil.copy(img_path, dest_dir)
+            shutil.copy(img_path, dest_dir_specific)
         except Exception as e:
-            print(f"複製圖片失敗: {img_path} 到 {dest_dir}, 錯誤: {e}")
+            print(f"複製圖片失敗: {img_path} 到 {dest_dir_specific}, 錯誤: {e}")
 
 # 計算準確率
 accuracy = accuracy_score(y_true, y_pred)
