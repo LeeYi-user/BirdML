@@ -23,5 +23,5 @@
 6. 使用 `main.py` 進行批量預測
 7. 使用 `clear.py` 清理預測結果
 8. 使用 `extract.py` 提取錯誤圖片
-9. 使用 [remove.bg](https://www.remove.bg/windows-mac-linux/download) 去背錯誤圖片
+9. 使用 `remove.py` 去背錯誤圖片
 10. 使用 `removed.py` 把去背圖片放進 test 資料夾
