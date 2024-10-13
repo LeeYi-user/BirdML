@@ -116,7 +116,7 @@ for class_name in os.listdir(test_dir):
         print(f"圖片: {img_path} | 預測類別: {predicted_class} | 置信度: {confidence:.4f}")
         
         # 決定將圖片複製到 true 或 false 資料夾的對應子資料夾
-        if predicted_class == class_name and confidence >= 0.9:
+        if predicted_class == class_name:
             dest_dir_specific = true_class_dir
         else:
             dest_dir_specific = false_class_dir
