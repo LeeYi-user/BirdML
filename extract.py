@@ -29,7 +29,7 @@ def extract_and_rename_images(source_folder, destination_folder):
                 print(f"圖片 {file} 已提取並重新命名為 {new_filename}")
 
 # 設定來源與目標資料夾
-source_folder = 'results/false/'
+source_folder = 'test'
 destination_folder = 'extracted_images/'
 
 # 執行提取與重新命名

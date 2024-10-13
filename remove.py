@@ -37,4 +37,4 @@ folder_path = 'extracted_images'
 output_folder = 'removed_images'
 
 # 執行圖片處理 (可調整 max_workers 來增加並行數量)
-process_images(folder_path, output_folder, max_workers=8)
+process_images(folder_path, output_folder, max_workers=16)
